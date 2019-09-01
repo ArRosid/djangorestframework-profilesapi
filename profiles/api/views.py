@@ -1,5 +1,6 @@
-from rest_framework import generics, mixins, viewsets
-from rest_framework import permissions
+from rest_framework import (generics, mixins,
+                            viewsets, permissions,
+                            filters)
 from profiles import models
 from . import serializers
 from . import permissions as custom_permissions
@@ -31,7 +32,8 @@ class ProfileViewSet(mixins.UpdateModelMixin,
     serializer_class = serializers.ProfileSerializer
     permission_classes = [permissions.IsAuthenticated,
                         custom_permissions.IsOwnProfileOrReadOnly]
-
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["city"]
 
 class ProfileStatusViewSet(viewsets.ModelViewSet):
     
