@@ -4,6 +4,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r"profiles", views.ProfileViewSet)
+router.register(r"status", views.ProfileStatusViewSet)
 
 # profile_list = views.ProfileViewSet.as_view({"get":"list"})
 # profile_detail = views.ProfileViewSet.as_view({"get":"retrieve"})
