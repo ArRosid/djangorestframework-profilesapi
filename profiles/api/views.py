@@ -34,11 +34,19 @@ class ProfileViewSet(mixins.UpdateModelMixin,
 
 
 class ProfileStatusViewSet(viewsets.ModelViewSet):
-    queryset = models.ProfileStatus.objects.all()
+    
     serializer_class = serializers.ProfileStatusSerializer
     permission_classes = [permissions.IsAuthenticated,
                         custom_permissions.IsOwnStatusOrReadOnly]
     
+    def get_queryset(self):
+        queryset = models.ProfileStatus.objects.all()
+        username = self.request.query_params.get("username", None)
+        if username is not None:
+            queryset = queryset.filter(user_profile__user__username=username)
+        
+        return queryset
+
     def perform_create(self, serializer):
         user_profile = self.request.user.profile
         serializer.save(user_profile=user_profile)
