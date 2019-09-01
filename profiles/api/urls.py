@@ -13,5 +13,6 @@ urlpatterns = [
     # path('profiles/', views.ProfileList.as_view(), name='profile-list'),
     # path("profiles/", profile_list, name="profile-list"),
     # path('profiles/<int:pk>/', profile_detail, name="profile-detail"),
-    path("", include(router.urls))
+    path("", include(router.urls)),
+    path("avatar/", views.AvatarUpdateView.as_view(), name="avatar-update"),
 ]

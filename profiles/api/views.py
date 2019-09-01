@@ -14,6 +14,14 @@ from . import permissions as custom_permissions
 #     serializer_class = serializers.ProfileSerializer
 #     permission_classes = [IsAuthenticated]
 
+class AvatarUpdateView(generics.UpdateAPIView):
+    serializer_class = serializers.ProfileAvatarSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        profile_obj = self.request.user.profile
+        return profile_obj
+
 class ProfileViewSet(mixins.UpdateModelMixin,
                     mixins.ListModelMixin,
                     mixins.RetrieveModelMixin,
